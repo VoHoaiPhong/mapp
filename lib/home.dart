@@ -1,87 +1,98 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// import 'package:qr_flutter/qr_flutter.dart';
+import 'tab1.dart';
+import 'tab2.dart';
+import 'tab3.dart';
 
-// import 'package:qrscan/qrscan.dart' as scanner;
+//Define "root widget"
+// void main() => runApp(new Home());//one-line function
 
-// String cameraScanResult = await scanner.scan();
-
-class Home extends StatefulWidget {
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  static const String _title = 'Quản lý toà nhà';
-
+class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: MyStatefulWidget(),
+    //build function returns a "Widget"
+    final tabController = new DefaultTabController(
+        length: 3,
+        child: new Scaffold(
+          appBar: new AppBar(
+            title: new Text("Quản lý toà nhà"),
+            bottom: new TabBar(
+                indicatorColor: Colors.white,
+                indicatorWeight: 2.0,
+                tabs: [
+                  new Tab(icon: new Icon(Icons.home),text: "Trang chủ"),
+                  new Tab(icon: new Icon(Icons.code),text: "QR Code"),
+                  new Tab(icon: new Icon(Icons.account_circle), text: "Thông tin",)
+            ]),
+          ),
+          drawer: Drawer(
+          child: ListView(
+            children: <Widget>[
+              new UserAccountsDrawerHeader(
+                accountName: new Text("Vo Hoai Phong"),
+                accountEmail: new Text("phong.vo.ctv@mobifone.vn"),
+                currentAccountPicture: new CircleAvatar(
+                  backgroundColor: Theme.of(context).platform == TargetPlatform.iOS ?Colors.deepPurple : Colors.white,
+                  child: new Text("P"),
+                ),
+                otherAccountsPictures: <Widget>[
+                  new CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: new Text("K"),
+                  )
+                ],
+              ),
+              ListTile(
+                title: Text("Trang chủ"),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).popAndPushNamed("/a");
+                },
+              ),
+              ListTile(
+                title: Text("Thông tin"),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              new Divider(),
+              ListTile(
+                title: Text("Đăng xuất"),
+                trailing: new Icon(Icons.arrow_drop_down),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: Text("Đóng"),
+                trailing: new Icon(Icons.close),
+                onTap: () {
+                  // Navigator.of(context).pop();
+                  Scaffold.of(context).openEndDrawer();
+                },
+              )
+            ],
+          ),
+        ),
+          body: new TabBarView(
+              children: [
+                new Tab1(),
+                new Tab2(),
+                new Tab3()
+              ]
+          ),
+        ),
     );
-  }
-}
-
-class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
-
-  @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
-}
-
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Trang chủ',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: QR Code',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: Thông tin',
-      style: optionStyle,
-    ),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Quản lý toà nhà'),
+    return new MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: new ThemeData(primarySwatch: Colors.deepPurple,
+      primaryColor: defaultTargetPlatform == TargetPlatform.iOS ? Colors.grey[50] : null
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Trang chủ'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.code),
-            title: Text('QR Code'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            title: Text('Thông tin'),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[1200],
-        onTap: _onItemTapped,
-      ),
+      title: "Tabs example",
+      home: tabController,
+      routes: <String, WidgetBuilder>{
+        "/a": (BuildContext context) => new Tab1(),
+      }
     );
   }
 }

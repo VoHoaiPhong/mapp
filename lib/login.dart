@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mapp/home.dart';
+// import 'package:mapp/home.dart';
 
 // void main()=>runApp(Login());
 
@@ -12,6 +13,7 @@ class _LoginState extends State<Login> {
   @override 
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Container(
           padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
@@ -99,10 +101,10 @@ class _LoginState extends State<Login> {
   }
 
 void onSignInClicked() {
-  Navigator.of(context)
-                .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
-              return new Home();
-            }));
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => Home()),
+  );
 }
 
 }
