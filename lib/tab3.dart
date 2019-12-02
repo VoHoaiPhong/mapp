@@ -4,8 +4,8 @@ class Tab3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Center(
       child: new Text(
-        "This is Chat Tab",
-        style: new TextStyle(fontSize: 25.0),
+        "This is Info Tab",
+        style: new TextStyle(fontSize: 25.0, fontFamily: 'Pacifico'),
       ),
     );
   }

@@ -85,7 +85,7 @@ class Home extends StatelessWidget {
     );
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: new ThemeData(primarySwatch: Colors.deepPurple,
+      theme: new ThemeData(primarySwatch: Colors.blue,
       primaryColor: defaultTargetPlatform == TargetPlatform.iOS ? Colors.grey[50] : null
       ),
       title: "Tabs example",

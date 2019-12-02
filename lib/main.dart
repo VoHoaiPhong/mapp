@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'login.dart';
+// import 'login.dart';
 // import 'home.dart';
+import 'onboarding.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,7 +11,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Quản lý toà nhà',
-      home: new Login(),
+      home: new OnboardingScreen(),
+      // home: new Login(),
       // home: new Home(),
     );
   }
